@@ -20,6 +20,9 @@ set(api_sources
   DebuggerAPI.cpp
   )
 
+add_subdirectory(inspector)
+add_subdirectory(jsinspector)
+
 file(GLOB api_headers ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 file(GLOB api_public_headers ${PROJECT_SOURCE_DIR}/public/hermes/Public/*.h)
 
@@ -143,6 +146,3 @@ if(HERMES_BUILD_APPLE_DSYM)
     install(DIRECTORY ${DSYM_PATH} DESTINATION lib)
   endif()
 endif()
-
-add_subdirectory(inspector)
-add_subdirectory(jsinspector)

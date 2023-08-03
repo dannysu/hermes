@@ -11,4 +11,11 @@ add_compile_options(
         -std=c++17)
 
 file(GLOB jsinspector_SRC CONFIGURE_DEPENDS *.cpp)
+
+set(api_sources
+  ${api_sources}
+  ${jsinspector_SRC}
+  PARENT_SCOPE
+  )
+
 add_library(jsinspector SHARED ${jsinspector_SRC})

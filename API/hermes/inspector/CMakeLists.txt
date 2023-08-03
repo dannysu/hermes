@@ -8,6 +8,12 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 file(GLOB hermesinspector_SRC CONFIGURE_DEPENDS *.cpp chrome/*.cpp)
 
+set(api_sources
+  ${api_sources}
+  ${hermesinspector_SRC}
+  PARENT_SCOPE
+  )
+
 add_library(hermes_inspector
         STATIC
         ${hermesinspector_SRC})
