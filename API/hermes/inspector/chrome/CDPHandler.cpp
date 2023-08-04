@@ -2028,6 +2028,16 @@ void CDPHandler::Impl::installConsoleFunction(
                 argsArray.setValueAtIndex(runtime, index, args[index]);
               emitConsoleAPICalledEvent(ConsoleMessageInfo{
                   currentTimestampMs(), chromeType, std::move(argsArray)});
+
+              {
+                std::ostringstream oss;
+                oss << "repeat from CDPHandler";
+                jsi::Array argsArray2(runtime, 1);
+                argsArray2.setValueAtIndex(runtime, 0, oss.str());
+                emitConsoleAPICalledEvent(ConsoleMessageInfo{
+                    currentTimestampMs(), "warning", std::move(argsArray2)});
+              }
+
               return jsi::Value::undefined();
             }
             // console.assert needs to check the first parameter before
