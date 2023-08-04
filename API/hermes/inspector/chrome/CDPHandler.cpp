@@ -1122,6 +1122,16 @@ void CDPHandler::Impl::handle(const m::runtime::EnableRequest &req) {
     runtimeEnabled_ = true;
     sendResponseToClient(m::makeOkResponse(req.id));
 
+    {
+      jsi::Runtime &rt = getRuntime();
+      std::ostringstream oss;
+      oss << "Yes, you're running CDPHandler.";
+      jsi::Array argsArray(rt, 1);
+      argsArray.setValueAtIndex(rt, 0, oss.str());
+      emitConsoleAPICalledEvent(ConsoleMessageInfo{
+          currentTimestampMs(), "warning", std::move(argsArray)});
+    }
+
     for (auto &msg : pendingConsoleMessages_) {
       emitConsoleAPICalledEvent(std::move(msg));
     }
